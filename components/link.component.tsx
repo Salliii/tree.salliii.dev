@@ -13,7 +13,7 @@ export default async function LinkComponent({
 		<li className={"w-full h-fit"}>
 			<Link className={"w-full h-fit flex flex-row items-center gap-2 rounded-md shadow-black shadow-2d " +
 				"border-2 border-black transition-colors " + (highlighted ? "bg-red-500" : "bg-blue-500")}
-				href={href}
+				href={`${process.env.BASE_URL}/redirect?=${href}`}
 				target={"_blank"}>
 				<div className={"w-10 min-w-10 h-10 min-h-10 m-1 stroke-white"}>
 					{Icon ? <Icon /> : ""}
