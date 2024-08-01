@@ -36,7 +36,7 @@ const staticLinkConfig: {title: string, highlighted: boolean, href: string, icon
 	},
 	{
 		title: "🌶️ Spicy Content 🍑🍆", highlighted: true,
-		href: "https://onlyfans.com/salliii", icon: undefined,
+		href: `${process.env.BASE_URL}/link-local/onlyfans`, icon: undefined,
 	},
 ];
 
