@@ -9,33 +9,33 @@ import SnapchatIcon from "@/public/svgs/links/snapchat.svg";
 import SpotifyIcon from "@/public/svgs/links/spotify.svg";
 
 
-const staticLinkConfig: {title: string, highlighted: boolean, href: string, icon: any}[] = [
+const staticLinkConfig: {title: string, highlighted: boolean, newTab: boolean, href: string, icon: any}[] = [
 	{
-		title: "Instagram", highlighted: false,
+		title: "Instagram", highlighted: false, newTab: true,
 		href: "https://www.instagram.com/salliii_02", icon: InstagramIcon,
 	},
 	{
-		title: "Pinterest", highlighted: false,
+		title: "Pinterest", highlighted: false, newTab: true,
 		href: "https://pin.it/5FH6yjRRS", icon: PinterestIcon,
 	},
 	{
-		title: "GitHub", highlighted: false,
+		title: "GitHub", highlighted: false, newTab: true,
 		href: "https://github.com/Salliii", icon: GithubIcon,
 	},
 	{
-		title: "LinkedIn", highlighted: false,
+		title: "LinkedIn", highlighted: false, newTab: true,
 		href: "https://www.linkedin.com/in/silas-schulreich", icon: LinkedinIcon,
 	},
 	{
-		title: "Snapchat", highlighted: false,
+		title: "Snapchat", highlighted: false, newTab: true,
 		href: "https://www.snapchat.com/add/salliii02?share_id=eo-y931-_lk", icon: SnapchatIcon,
 	},
 	{
-		title: "Spotify", highlighted: false,
+		title: "Spotify", highlighted: false, newTab: true,
 		href: "https://open.spotify.com/user/5otfy4jykovu1ypl938xzn7zf?si=Yxn1R807Teu2kBcuI-upnA", icon: SpotifyIcon,
 	},
 	{
-		title: "🌶️ Spicy Content 🍑🍆", highlighted: true,
+		title: "🌶️ Spicy Content 🍑🍆", highlighted: true, newTab: false,
 		href: `${process.env.BASE_URL}/link-local/onlyfans`, icon: undefined,
 	},
 ];
@@ -55,6 +55,7 @@ export default async function RootPage() {
 					return <LinkComponent key={index}
 						title={link.title}
 						highlighted={link.highlighted}
+						newTab={link.newTab}
 						href={link.href}
 						Icon={link.icon} />;
 				})}
