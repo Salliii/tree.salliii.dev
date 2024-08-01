@@ -7,7 +7,7 @@ const staticRouteMap: {[key: string]: string} = {
 	"https://onlyfans.com/salliii": "/redirect/local/onlyfans",
 };
 
-export async function GET(request: NextRequest) {
+async function handler(request: NextRequest) {
 	const route = request.nextUrl.searchParams.get("");
 
 	if (!route) {
@@ -24,3 +24,5 @@ export async function GET(request: NextRequest) {
 		return NextResponse.redirect(new URL("/", request.url));
 	}
 }
+
+export {handler as GET, handler as POST};
