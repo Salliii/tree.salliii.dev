@@ -7,7 +7,12 @@ const config: Config = {
 		"./app/**/*.{js,ts,jsx,tsx,mdx}",
 	],
 	theme: {
-		extend: {},
+		extend: {
+			fontFamily: {
+				"roboto-slab": ["var(--font-roboto-slab)"],
+				"merriweather": ["var(--font-merriweather)"],
+			},
+		},
 	},
 	plugins: [],
 };
