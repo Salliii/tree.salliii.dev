@@ -1,5 +1,6 @@
 "use server";
 
+import FooterComponent from "@/components/footer.component";
 import LinkComponent from "@/components/link.component";
 import GithubIcon from "@/public/svgs/links/github.svg";
 import InstagramIcon from "@/public/svgs/links/instagram.svg";
@@ -60,12 +61,7 @@ export default async function RootPage() {
 						Icon={link.icon} />;
 				})}
 			</ul>
-			<section className={"h-fit px-8 py-1 mt-auto border-t border-black text-xs text-black font-merriweather" +
-				" select-none flex flex-row justify-center"}>
-				<span>
-					made by salliii
-				</span>
-			</section>
+			<FooterComponent />
 		</main>
 	);
 }
