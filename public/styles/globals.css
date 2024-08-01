@@ -3,6 +3,35 @@
 @tailwind components;
 
 @layer base {
+	* {
+		scrollbar-width: none;
+
+		::-webkit-scrollbar {
+			display: none
+		}
+	}
+
+	html,
+	body {
+		@apply
+		w-screen h-screen
+	}
+
+	body {
+		@apply
+		flex flex-col items-center
+		px-4
+		relative
+		bg-green-400
+	}
+
+	main {
+		@apply
+		w-full sm:w-96 h-full
+		border-x border-black
+		overflow-x-hidden overflow-y-scroll
+		relative
+	}
 }
 
 @layer utilities {
