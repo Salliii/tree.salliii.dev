@@ -20,9 +20,14 @@ const config: Config = {
 					"0%": {transform: "translateY(200%)"},
 					"50%, 100%": {transform: "translateY(0%)"},
 				},
+				"movein-from-top": {
+					"0%": {transform: "translateY(-200%)"},
+					"50%, 100%": {transform: "translateY(0%)"},
+				},
 			},
 			animation: {
 				"movein-from-bottom": "movein-from-bottom 1600ms ease-out forwards",
+				"movein-from-top": "movein-from-top 1600ms ease-out forwards",
 			},
 		},
 	},
