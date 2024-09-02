@@ -1,18 +1,16 @@
 "use server";
 
 import BackLinkComponent from "@/components/back-link.component";
-import ButtonComponent from "@/components/button.component";
 import FooterComponent from "@/components/footer.component";
 import PointingLeonardoGif from "@/public/gifs/pointing_leonardo.gif";
-import ArrowDownIcon from "@/public/svgs/arrow-down.svg";
 import Image from "next/image";
 import React from "react";
 
 
 export default async function OnlyfansPage() {
 	return (
-		<main className={"flex flex-col"}>
-			<section className={"min-h-screen flex flex-col justify-center"}>
+		<main className={"flex flex-col items-center justify-center"}>
+			<section className={"w-full h-fit flex flex-col justify-center"}>
 				<section className={"h-fit flex flex-col relative"}>
 					<section className={"w-full h-fit py-1 border-t border-black flex flex-col items-center overflow-hidden " +
 						"-z-10"}>
@@ -40,19 +38,8 @@ export default async function OnlyfansPage() {
 							</span>
 						</div>
 					</section>
-					<div className={"w-full h-fit absolute -bottom-16 left-0 flex flex-col items-center"}>
-						<div className={"w-8 h-8 stroke-black animate-bounce"}>
-							<ArrowDownIcon />
-						</div>
-					</div>
 				</section>
 				<BackLinkComponent />
-			</section>
-			<section className={"w-full h-fit px-8 pt-4 pb-16 flex flex-col items-center gap-2"}>
-				<div className={"w-full h-fit text-base text-black font-merriweather flex flex-row gap-y-1 items-center justify-center flex-wrap"}>
-					<span>Spicy content? &nbsp;</span>
-					<span>Your <ButtonComponent title={"vote"} /> &nbsp;decides!</span>
-				</div>
 			</section>
 			<FooterComponent />
 		</main>
