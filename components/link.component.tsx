@@ -1,20 +1,12 @@
 "use server";
 
-import {Link as PrismaLink, Svg as PrismaSvg} from "@prisma/client";
+import LinkService from "@/lib/services/link.service";
 import Link from "next/link";
 import React from "react";
 
 
 export async function LinkComponentUiWrapper() {
-	const result = await fetch(
-		new URL("/api/link/map", process.env.BASE_URL),
-		{
-			cache: "no-store",
-			method: "GET",
-		},
-	);
-
-	const links: (PrismaLink & {svg?: PrismaSvg})[] = await result.json();
+	const links = await LinkService.getVisibleLinks();
 
 	return (
 		<ul className={"w-full h-fit p-8 flex flex-col gap-4"}>
