@@ -33,9 +33,10 @@ export async function POST(request: NextRequest) {
 		const body = z.object({
 			title: z.string(),
 			href: z.string().url(),
+			local: z.string().optional().nullable(),
 			highlighted: z.boolean(),
 			visible: z.boolean(),
-			svgId: z.string().optional(),
+			svgId: z.string().optional().nullable(),
 		}).parse(await request.json());
 
 		const link = await LinkService.addLink(body);
@@ -74,10 +75,11 @@ export async function PATCH(request: NextRequest) {
 		const body = z.object({
 			title: z.string().optional(),
 			href: z.string().url().optional(),
+			local: z.string().optional().nullable(),
 			highlighted: z.boolean().optional(),
 			visible: z.boolean().optional(),
 			index: z.number().optional(),
-			svgId: z.string().optional(),
+			svgId: z.string().optional().nullable(),
 		}).parse(await request.json());
 
 		const link = await LinkService.updateLink(id, body);
@@ -115,7 +117,7 @@ export async function DELETE(request: NextRequest) {
 	try {
 		const link = await LinkService.deleteLink(id);
 		revalidatePath("/", "page");
-		
+
 		return NextResponse.json(
 			link,
 			{status: 200},

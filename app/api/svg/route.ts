@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
 
 		body.svg = optimize(body.svg, svgoConfig as any).data;
 
-		const link = SvgService.addSvg(body);
+		const link = await SvgService.addSvg(body);
 		revalidatePath("/", "page");
 
 		return NextResponse.json(
