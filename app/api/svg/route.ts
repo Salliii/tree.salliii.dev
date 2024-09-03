@@ -4,6 +4,8 @@ import {NextRequest, NextResponse} from "next/server";
 import {optimize} from "svgo";
 
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
 	const result = await prismaClient.svg.findMany();
 
