@@ -2,7 +2,7 @@
 
 import {Merriweather, Roboto_Slab} from "next/font/google";
 import React from "react";
-import "@/public/styles/globals.css";
+import "@/styles/globals.css";
 
 
 const fontRobotoSlab = Roboto_Slab({
