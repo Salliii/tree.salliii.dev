@@ -1,5 +1,3 @@
-"use server";
-
 import {Merriweather, Roboto_Slab} from "next/font/google";
 import React from "react";
 import "@/styles/globals.css";
