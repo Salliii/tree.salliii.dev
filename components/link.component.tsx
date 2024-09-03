@@ -5,9 +5,9 @@ import React from "react";
 
 
 export default async function LinkComponent({
-	title, highlighted, newTab, href, Icon,
+	title, highlighted, newTab, href, svg,
 }: {
-	title: string, highlighted: boolean, newTab: boolean, href: string, Icon: any,
+	title: string, highlighted: boolean, newTab: boolean, href: string, svg: string,
 }) {
 	return (
 		<li className={"w-full h-fit"}>
@@ -15,8 +15,8 @@ export default async function LinkComponent({
 				"border-2 border-black transition-colors " + (highlighted ? "bg-red-500" : "bg-blue-500")}
 				href={href}
 				target={newTab ? "_blank" : undefined}>
-				<div className={"w-10 min-w-10 h-10 min-h-10 m-1 stroke-white"}>
-					{Icon ? <Icon /> : ""}
+				<div className={"w-10 min-w-10 h-10 min-h-10 m-1 stroke-white"}
+					dangerouslySetInnerHTML={{__html: svg}}>
 				</div>
 				<span className={"w-full h-fit mr-1 text-white text-lg font-roboto-slab"}>
 					{title}

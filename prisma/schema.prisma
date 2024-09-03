@@ -1,0 +1,39 @@
+generator client {
+	provider = "prisma-client-js"
+}
+
+datasource db {
+    provider  = "postgresql"
+    url       = env("POSTGRES_PRISMA_URL")
+    directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model Link {
+	id          String  @id @default(uuid())
+	title       String
+	href        String
+	highlighted Boolean
+	visible     Boolean
+	index       Int     @default(autoincrement())
+
+	createdAt DateTime @default(now())
+	updatedAt DateTime @updatedAt
+
+	svgId String?
+	svg   Svg?    @relation(fields: [svgId], references: [id], onDelete: SetNull)
+
+	@@map("links")
+}
+
+model Svg {
+	id   String @id @default(uuid())
+	name String
+	svg  String
+
+	createdAt DateTime @default(now())
+	updatedAt DateTime @updatedAt
+
+	links Link[]
+
+	@@map("svgs")
+}
