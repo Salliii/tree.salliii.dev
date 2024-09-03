@@ -1,5 +1,5 @@
 import {Merriweather, Roboto_Slab} from "next/font/google";
-import React from "react";
+import React, {Suspense} from "react";
 import "@/styles/globals.css";
 
 
@@ -30,7 +30,9 @@ export default async function RootLayout({
 		<html className={`${fontRobotoSlab.variable} ${fontMerriweather.variable}`}
 			lang={"en"}>
 			<body>
-				{children}
+				<Suspense>
+					{children}
+				</Suspense>
 			</body>
 		</html>
 	);

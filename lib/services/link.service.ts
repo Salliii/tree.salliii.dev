@@ -17,24 +17,55 @@ export default class LinkService {
 		});
 	}
 
+	public static async getLinkById(id: string) {
+		return prismaClient.link.findUnique({where: {id}});
+	}
+
 	public static async addLink(data: {
 		title: string;
 		href: string;
+		local?: string | undefined | null;
 		highlighted: boolean;
 		visible: boolean;
 		svgId?: string | undefined | null;
 	}) {
-		return prismaClient.link.create({data});
+		if (data.local) {
+			data.href = "locallink";
+
+			const initLink = await prismaClient.link.create({data});
+
+			return prismaClient.link.update({
+				where: {id: initLink.id},
+				data: {href: new URL(initLink.id, process.env.BASE_URL as string).href},
+			});
+		} else {
+			return prismaClient.link.create({data});
+		}
 	}
 
 	public static async updateLink(id: string, data: {
 		title?: string | undefined;
 		href?: string | undefined;
+		local?: string | undefined | null;
 		highlighted?: boolean | undefined;
 		visible?: boolean | undefined;
 		index?: number | undefined;
 		svgId?: string | undefined | null;
 	}) {
+		const prevLink = await prismaClient.link.findUniqueOrThrow({where: {id}});
+
+		if (prevLink.local === null && data.local) {
+			data.href = new URL(prevLink.id, process.env.BASE_URL).href;
+		}
+
+		if (prevLink.local && data.local !== null) {
+			data.href = new URL(prevLink.id, process.env.BASE_URL).href;
+		}
+
+		if (prevLink.local && data.local === null && data.href === undefined) {
+			data.href = new URL("/", process.env.BASE_URL).href;
+		}
+
 		return prismaClient.link.update({where: {id}, data});
 	}
 

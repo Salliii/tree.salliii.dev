@@ -33,6 +33,7 @@ export async function POST(request: NextRequest) {
 		const body = z.object({
 			title: z.string(),
 			href: z.string().url(),
+			local: z.string().optional().nullable(),
 			highlighted: z.boolean(),
 			visible: z.boolean(),
 			svgId: z.string().optional().nullable(),
@@ -74,6 +75,7 @@ export async function PATCH(request: NextRequest) {
 		const body = z.object({
 			title: z.string().optional(),
 			href: z.string().url().optional(),
+			local: z.string().optional().nullable(),
 			highlighted: z.boolean().optional(),
 			visible: z.boolean().optional(),
 			index: z.number().optional(),

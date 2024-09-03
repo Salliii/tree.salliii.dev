@@ -14,7 +14,7 @@ export async function LinkComponentUiWrapper() {
 				return <LinkComponent key={link.index}
 					title={link.title}
 					highlighted={link.highlighted}
-					newTab={!link.href.includes("link-local")}
+					newTab={!link.href.startsWith(process.env.BASE_URL as string)}
 					href={link.href}
 					svg={link.svg?.svg || ""} />;
 			})}

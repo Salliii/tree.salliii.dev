@@ -7,7 +7,7 @@ import Image from "next/image";
 import React from "react";
 
 
-export default async function OnlyfansPage() {
+export default async function SpicyLocalPage() {
 	return (
 		<main className={"flex flex-col items-center justify-center"}>
 			<section className={"w-full h-fit flex flex-col justify-center"}>
