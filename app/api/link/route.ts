@@ -4,6 +4,7 @@ import {NextRequest, NextResponse} from "next/server";
 
 export async function GET() {
 	const result = await prismaClient.link.findMany({
+		orderBy: {index: "asc"},
 		include: {
 			svg: true,
 		},
@@ -18,10 +19,11 @@ export async function POST(request: NextRequest) {
 		return NextResponse.json("401 Unauthorized", {status: 401});
 	}
 
-	const {title, href, highlighted, svgId}: {
+	const {title, href, highlighted, visible, svgId}: {
 		title: string,
 		href: string,
 		highlighted: boolean,
+		visible: boolean,
 		svgId?: string | undefined
 	} = await request.json();
 
@@ -30,6 +32,7 @@ export async function POST(request: NextRequest) {
 			title,
 			href,
 			highlighted,
+			visible,
 			svgId,
 		},
 	});
@@ -48,10 +51,12 @@ export async function PATCH(request: NextRequest) {
 		return NextResponse.json("400 Bad Request", {status: 400});
 	}
 
-	const {title, href, highlighted, svgId}: {
+	const {title, href, highlighted, visible, index, svgId}: {
 		title?: string | undefined,
 		href?: string | undefined,
 		highlighted?: boolean | undefined,
+		visible?: boolean | undefined,
+		index?: number | undefined,
 		svgId?: string | undefined
 	} = await request.json();
 
@@ -61,6 +66,8 @@ export async function PATCH(request: NextRequest) {
 			title,
 			href,
 			highlighted,
+			visible,
+			index,
 			svgId,
 		},
 	});

@@ -12,6 +12,8 @@ model Link {
     title       String
     href        String
     highlighted Boolean
+    visible     Boolean
+    index       Int     @default(autoincrement())
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
