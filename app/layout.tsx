@@ -17,6 +17,9 @@ const fontMerriweather = Merriweather({
 	variable: "--font-merriweather",
 });
 
+export const metadata = {
+	title: "tree.salliii.dev",
+};
 
 export default async function RootLayout({
 	children,
