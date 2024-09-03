@@ -8,20 +8,17 @@ import {z} from "zod";
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-	return SvgService
-		.getAllSvgs()
-		.then((result) => {
-			return NextResponse.json(
-				result,
-				{status: 200},
-			);
-		})
-		.catch(() => {
-			return NextResponse.json(
-				"500 Internal Server Error",
-				{status: 500},
-			);
-		});
+	try {
+		return NextResponse.json(
+			await SvgService.getAllSvgs(),
+			{status: 200},
+		);
+	} catch (error) {
+		return NextResponse.json(
+			"400 Bad Request",
+			{status: 400},
+		);
+	}
 }
 
 
@@ -34,24 +31,16 @@ export async function POST(request: NextRequest) {
 		);
 	}
 
-	const body = z.object({
-		name: z.string(),
-		svg: z.string(),
-	}).safeParse(await request.json());
+	try {
+		const body = z.object({
+			name: z.string(),
+			svg: z.string(),
+		}).parse(await request.json());
 
-
-	if (body.success) {
-		try {
-			body.data.svg = optimize(body.data.svg, svgoConfig as any).data;
-		} catch (error) {
-			return NextResponse.json(
-				"424 Failed Dependency",
-				{status: 424},
-			);
-		}
+		body.svg = optimize(body.svg, svgoConfig as any).data;
 
 		return SvgService
-			.addSvg(body.data)
+			.addSvg(body)
 			.then((result) => {
 				return NextResponse.json(
 					result,
@@ -64,12 +53,12 @@ export async function POST(request: NextRequest) {
 					{status: 400},
 				);
 			});
+	} catch (error) {
+		return NextResponse.json(
+			"400 Bad Request",
+			{status: 400},
+		);
 	}
-
-	return NextResponse.json(
-		"400 Bad Request",
-		{status: 400},
-	);
 }
 
 export async function PATCH(request: NextRequest) {
@@ -89,43 +78,26 @@ export async function PATCH(request: NextRequest) {
 		);
 	}
 
-	const body = z.object({
-		name: z.string().optional(),
-		svg: z.string().optional(),
-	}).safeParse(await request.json());
+	try {
+		const body = z.object({
+			name: z.string().optional(),
+			svg: z.string().optional(),
+		}).parse(await request.json());
 
-	if (body.success) {
-		if (body.data.svg) {
-			try {
-				body.data.svg = optimize(body.data.svg, svgoConfig as any).data;
-			} catch (error) {
-				return NextResponse.json(
-					"424 Failed Dependency",
-					{status: 424},
-				);
-			}
+		if (body.svg) {
+			body.svg = optimize(body.svg, svgoConfig as any).data;
 		}
 
-		return SvgService
-			.updateSvg(id, body.data)
-			.then((result) => {
-				return NextResponse.json(
-					result,
-					{status: 200},
-				);
-			})
-			.catch(() => {
-				return NextResponse.json(
-					"400 Bad Request",
-					{status: 400},
-				);
-			});
+		return NextResponse.json(
+			await SvgService.updateSvg(id, body),
+			{status: 200},
+		);
+	} catch (error) {
+		return NextResponse.json(
+			"400 Bad Request",
+			{status: 400},
+		);
 	}
-
-	return NextResponse.json(
-		"400 Bad Request",
-		{status: 400},
-	);
 }
 
 export async function DELETE(request: NextRequest) {
@@ -145,18 +117,15 @@ export async function DELETE(request: NextRequest) {
 		);
 	}
 
-	return SvgService
-		.deleteSvg(id)
-		.then((result) => {
-			return NextResponse.json(
-				result,
-				{status: 200},
-			);
-		})
-		.catch(() => {
-			return NextResponse.json(
-				"400 Bad Request",
-				{status: 400},
-			);
-		});
+	try {
+		return NextResponse.json(
+			await SvgService.deleteSvg(id),
+			{status: 200},
+		);
+	} catch (error) {
+		return NextResponse.json(
+			"400 Bad Request",
+			{status: 400},
+		);
+	}
 }

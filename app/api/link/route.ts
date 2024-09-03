@@ -6,20 +6,17 @@ import {z} from "zod";
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-	return LinkService
-		.getAllLinks()
-		.then((result) => {
-			return NextResponse.json(
-				result,
-				{status: 200},
-			);
-		})
-		.catch(() => {
-			return NextResponse.json(
-				"500 Internal Server Error",
-				{status: 500},
-			);
-		});
+	try {
+		return NextResponse.json(
+			await LinkService.getAllLinks(),
+			{status: 200},
+		);
+	} catch (error) {
+		return NextResponse.json(
+			"400 Bad Request",
+			{status: 400},
+		);
+	}
 }
 
 export async function POST(request: NextRequest) {
@@ -31,35 +28,25 @@ export async function POST(request: NextRequest) {
 		);
 	}
 
-	const body = z.object({
-		title: z.string(),
-		href: z.string().url(),
-		highlighted: z.boolean(),
-		visible: z.boolean(),
-		svgId: z.string().optional(),
-	}).safeParse(await request.json());
+	try {
+		const body = z.object({
+			title: z.string(),
+			href: z.string().url(),
+			highlighted: z.boolean(),
+			visible: z.boolean(),
+			svgId: z.string().optional(),
+		}).parse(await request.json());
 
-	if (body.success) {
-		return LinkService
-			.addLink(body.data)
-			.then((result) => {
-				return NextResponse.json(
-					result,
-					{status: 200},
-				);
-			})
-			.catch(() => {
-				return NextResponse.json(
-					"400 Bad Request",
-					{status: 400},
-				);
-			});
+		return NextResponse.json(
+			await LinkService.addLink(body),
+			{status: 200},
+		);
+	} catch (error) {
+		return NextResponse.json(
+			"400 Bad Request",
+			{status: 400},
+		);
 	}
-
-	return NextResponse.json(
-		"400 Bad Request",
-		{status: 400},
-	);
 }
 
 export async function PATCH(request: NextRequest) {
@@ -79,36 +66,26 @@ export async function PATCH(request: NextRequest) {
 		);
 	}
 
-	const body = z.object({
-		title: z.string().optional(),
-		href: z.string().url().optional(),
-		highlighted: z.boolean().optional(),
-		visible: z.boolean().optional(),
-		index: z.number().optional(),
-		svgId: z.string().optional(),
-	}).safeParse(await request.json());
+	try {
+		const body = z.object({
+			title: z.string().optional(),
+			href: z.string().url().optional(),
+			highlighted: z.boolean().optional(),
+			visible: z.boolean().optional(),
+			index: z.number().optional(),
+			svgId: z.string().optional(),
+		}).parse(await request.json());
 
-	if (body.success) {
-		return LinkService
-			.updateLink(id, body.data)
-			.then((result) => {
-				return NextResponse.json(
-					result,
-					{status: 200},
-				);
-			})
-			.catch(() => {
-				return NextResponse.json(
-					"400 Bad Request",
-					{status: 400},
-				);
-			});
+		return NextResponse.json(
+			await LinkService.updateLink(id, body),
+			{status: 200},
+		);
+	} catch (error) {
+		return NextResponse.json(
+			"400 Bad Request",
+			{status: 400},
+		);
 	}
-
-	return NextResponse.json(
-		"400 Bad Request",
-		{status: 400},
-	);
 }
 
 export async function DELETE(request: NextRequest) {
@@ -128,18 +105,15 @@ export async function DELETE(request: NextRequest) {
 		);
 	}
 
-	return LinkService
-		.deleteLink(id)
-		.then((result) => {
-			return NextResponse.json(
-				result,
-				{status: 200},
-			);
-		})
-		.catch(() => {
-			return NextResponse.json(
-				"400 Bad Request",
-				{status: 400},
-			);
-		});
+	try {
+		return NextResponse.json(
+			await LinkService.deleteLink(id),
+			{status: 200},
+		);
+	} catch (error) {
+		return NextResponse.json(
+			"400 Bad Request",
+			{status: 400},
+		);
+	}
 }
