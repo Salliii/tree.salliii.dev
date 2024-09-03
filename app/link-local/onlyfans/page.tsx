@@ -1,6 +1,6 @@
 "use server";
 
-import BackLinkComponent from "@/components/back-link.component";
+import Back from "@/components/back.component";
 import FooterComponent from "@/components/footer.component";
 import PointingLeonardoGif from "@/public/gifs/pointing_leonardo.gif";
 import Image from "next/image";
@@ -39,7 +39,7 @@ export default async function OnlyfansPage() {
 						</div>
 					</section>
 				</section>
-				<BackLinkComponent />
+				<Back />
 			</section>
 			<FooterComponent />
 		</main>

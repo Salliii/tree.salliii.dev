@@ -1,10 +1,28 @@
 "use server";
 
+import LinkService from "@/lib/services/link.service";
 import Link from "next/link";
 import React from "react";
 
 
-export default async function LinkComponent({
+export async function LinkComponentUiWrapper() {
+	const links = await LinkService.getVisibleLinks();
+
+	return (
+		<ul className={"w-full h-fit p-8 flex flex-col gap-4"}>
+			{links.map((link) => {
+				return <LinkComponent key={link.index}
+					title={link.title}
+					highlighted={link.highlighted}
+					newTab={!link.href.includes("link-local")}
+					href={link.href}
+					svg={link.svg?.svg || ""} />;
+			})}
+		</ul>
+	);
+}
+
+export async function LinkComponent({
 	title, highlighted, newTab, href, svg,
 }: {
 	title: string, highlighted: boolean, newTab: boolean, href: string, svg: string,

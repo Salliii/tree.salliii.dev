@@ -1,96 +1,129 @@
-import {prismaClient} from "@/prisma/client";
+import LinkService from "@/lib/services/link.service";
+import {revalidatePath} from "next/cache";
 import {NextRequest, NextResponse} from "next/server";
+import {z} from "zod";
 
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-	const result = await prismaClient.link.findMany({
-		orderBy: {index: "asc"},
-		include: {
-			svg: true,
-		},
-	});
-
-	return NextResponse.json(result, {status: 200});
+	try {
+		return NextResponse.json(
+			await LinkService.getAllLinks(),
+			{status: 200},
+		);
+	} catch (error) {
+		return NextResponse.json(
+			"400 Bad Request",
+			{status: 400},
+		);
+	}
 }
 
 export async function POST(request: NextRequest) {
 	const secret = request.nextUrl.searchParams.get("secret");
 	if (!secret || secret != process.env.SECRET) {
-		return NextResponse.json("401 Unauthorized", {status: 401});
+		return NextResponse.json(
+			"401 Unauthorized",
+			{status: 401},
+		);
 	}
 
-	const {title, href, highlighted, visible, svgId}: {
-		title: string,
-		href: string,
-		highlighted: boolean,
-		visible: boolean,
-		svgId?: string | undefined
-	} = await request.json();
+	try {
+		const body = z.object({
+			title: z.string(),
+			href: z.string().url(),
+			highlighted: z.boolean(),
+			visible: z.boolean(),
+			svgId: z.string().optional(),
+		}).parse(await request.json());
 
-	const result = await prismaClient.link.create({
-		data: {
-			title,
-			href,
-			highlighted,
-			visible,
-			svgId,
-		},
-	});
+		const link = await LinkService.addLink(body);
+		revalidatePath("/", "page");
 
-	return NextResponse.json(result, {status: 201});
+		return NextResponse.json(
+			link,
+			{status: 200},
+		);
+	} catch (error) {
+		return NextResponse.json(
+			"400 Bad Request",
+			{status: 400},
+		);
+	}
 }
 
 export async function PATCH(request: NextRequest) {
 	const secret = request.nextUrl.searchParams.get("secret");
 	if (!secret || secret != process.env.SECRET) {
-		return NextResponse.json("401 Unauthorized", {status: 401});
+		return NextResponse.json(
+			"401 Unauthorized",
+			{status: 401},
+		);
 	}
 
 	const id = request.nextUrl.searchParams.get("id");
 	if (!id) {
-		return NextResponse.json("400 Bad Request", {status: 400});
+		return NextResponse.json(
+			"400 Bad Request",
+			{status: 400},
+		);
 	}
 
-	const {title, href, highlighted, visible, index, svgId}: {
-		title?: string | undefined,
-		href?: string | undefined,
-		highlighted?: boolean | undefined,
-		visible?: boolean | undefined,
-		index?: number | undefined,
-		svgId?: string | undefined
-	} = await request.json();
+	try {
+		const body = z.object({
+			title: z.string().optional(),
+			href: z.string().url().optional(),
+			highlighted: z.boolean().optional(),
+			visible: z.boolean().optional(),
+			index: z.number().optional(),
+			svgId: z.string().optional(),
+		}).parse(await request.json());
 
-	const result = await prismaClient.link.update({
-		where: {id},
-		data: {
-			title,
-			href,
-			highlighted,
-			visible,
-			index,
-			svgId,
-		},
-	});
+		const link = await LinkService.updateLink(id, body);
+		revalidatePath("/", "page");
 
-	return NextResponse.json(result, {status: 200});
+		return NextResponse.json(
+			link,
+			{status: 200},
+		);
+	} catch (error) {
+		return NextResponse.json(
+			"400 Bad Request",
+			{status: 400},
+		);
+	}
 }
 
 export async function DELETE(request: NextRequest) {
 	const secret = request.nextUrl.searchParams.get("secret");
 	if (!secret || secret != process.env.SECRET) {
-		return NextResponse.json("401 Unauthorized", {status: 401});
+		return NextResponse.json(
+			"401 Unauthorized",
+			{status: 401},
+		);
 	}
 
 	const id = request.nextUrl.searchParams.get("id");
 	if (!id) {
-		return NextResponse.json("400 Bad Request", {status: 400});
+		return NextResponse.json(
+			"400 Bad Request",
+			{status: 400},
+		);
 	}
 
-	const result = await prismaClient.link.delete({
-		where: {id},
-	});
-
-	return NextResponse.json(result, {status: 200});
+	try {
+		const link = await LinkService.deleteLink(id);
+		revalidatePath("/", "page");
+		
+		return NextResponse.json(
+			link,
+			{status: 200},
+		);
+	} catch (error) {
+		return NextResponse.json(
+			"400 Bad Request",
+			{status: 400},
+		);
+	}
 }

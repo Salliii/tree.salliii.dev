@@ -1,9 +1,25 @@
-"use server";
-
-import {fontMerriweather, fontRobotoSlab} from "@/public/fonts";
+import {Merriweather, Roboto_Slab} from "next/font/google";
 import React from "react";
-import "@/public/styles/globals.css";
+import "@/styles/globals.css";
 
+
+const fontRobotoSlab = Roboto_Slab({
+	display: "swap",
+	subsets: ["latin"],
+	weight: ["400", "700"],
+	variable: "--font-roboto-slab",
+});
+
+const fontMerriweather = Merriweather({
+	display: "swap",
+	subsets: ["latin"],
+	weight: ["400", "700"],
+	variable: "--font-merriweather",
+});
+
+export const metadata = {
+	title: "tree.salliii.dev",
+};
 
 export default async function RootLayout({
 	children,
