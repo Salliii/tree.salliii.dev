@@ -22,7 +22,7 @@ export default class LinkService {
 		href: string;
 		highlighted: boolean;
 		visible: boolean;
-		svgId?: string | undefined;
+		svgId?: string | undefined | null;
 	}) {
 		return prismaClient.link.create({data});
 	}
@@ -33,7 +33,7 @@ export default class LinkService {
 		highlighted?: boolean | undefined;
 		visible?: boolean | undefined;
 		index?: number | undefined;
-		svgId?: string | undefined;
+		svgId?: string | undefined | null;
 	}) {
 		return prismaClient.link.update({where: {id}, data});
 	}
