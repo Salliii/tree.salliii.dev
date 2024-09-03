@@ -2,14 +2,23 @@
 
 import FooterComponent from "@/components/footer.component";
 import LinkComponent from "@/components/link.component";
-import {prismaClient} from "@/prisma/client";
+import {Link, Svg} from "@prisma/client";
+
+
+async function fetchLinks(): Promise<(Link & {svg?: Svg})[]> {
+	const result = await fetch(
+		new URL("/api/link/map", process.env.BASE_URL),
+		{
+			cache: "no-store",
+			method: "GET",
+		},
+	);
+
+	return await result.json();
+}
 
 export default async function RootPage() {
-	const links = await prismaClient.link.findMany({
-		where: {visible: true},
-		orderBy: {index: "asc"},
-		include: {svg: true},
-	});
+	const links = await fetchLinks();
 
 	return (
 		<main className={"flex flex-col"}>
