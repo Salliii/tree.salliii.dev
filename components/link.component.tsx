@@ -1,10 +1,36 @@
 "use server";
 
+import {Link as PrismaLink, Svg as PrismaSvg} from "@prisma/client";
 import Link from "next/link";
 import React from "react";
 
 
-export default async function LinkComponent({
+export async function LinkComponentUiWrapper() {
+	const result = await fetch(
+		new URL("/api/link/map", process.env.BASE_URL),
+		{
+			cache: "no-store",
+			method: "GET",
+		},
+	);
+
+	const links: (PrismaLink & {svg?: PrismaSvg})[] = await result.json();
+
+	return (
+		<ul className={"w-full h-fit p-8 flex flex-col gap-4"}>
+			{links.map((link) => {
+				return <LinkComponent key={link.index}
+					title={link.title}
+					highlighted={link.highlighted}
+					newTab={!link.href.includes("link-local")}
+					href={link.href}
+					svg={link.svg?.svg || ""} />;
+			})}
+		</ul>
+	);
+}
+
+export async function LinkComponent({
 	title, highlighted, newTab, href, svg,
 }: {
 	title: string, highlighted: boolean, newTab: boolean, href: string, svg: string,
