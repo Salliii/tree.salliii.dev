@@ -1,5 +1,6 @@
 import SvgService from "@/lib/services/svg.service";
 import svgoConfig from "@/svgo.config.mjs";
+import {revalidatePath} from "next/cache";
 import {NextRequest, NextResponse} from "next/server";
 import {optimize} from "svgo";
 import {z} from "zod";
@@ -39,20 +40,13 @@ export async function POST(request: NextRequest) {
 
 		body.svg = optimize(body.svg, svgoConfig as any).data;
 
-		return SvgService
-			.addSvg(body)
-			.then((result) => {
-				return NextResponse.json(
-					result,
-					{status: 200},
-				);
-			})
-			.catch(() => {
-				return NextResponse.json(
-					"400 Bad Request",
-					{status: 400},
-				);
-			});
+		const link = SvgService.addSvg(body);
+		revalidatePath("/", "page");
+
+		return NextResponse.json(
+			link,
+			{status: 200},
+		);
 	} catch (error) {
 		return NextResponse.json(
 			"400 Bad Request",
@@ -88,8 +82,11 @@ export async function PATCH(request: NextRequest) {
 			body.svg = optimize(body.svg, svgoConfig as any).data;
 		}
 
+		const link = await SvgService.updateSvg(id, body);
+		revalidatePath("/", "page");
+
 		return NextResponse.json(
-			await SvgService.updateSvg(id, body),
+			link,
 			{status: 200},
 		);
 	} catch (error) {
@@ -118,8 +115,11 @@ export async function DELETE(request: NextRequest) {
 	}
 
 	try {
+		const link = await SvgService.deleteSvg(id);
+		revalidatePath("/", "page");
+
 		return NextResponse.json(
-			await SvgService.deleteSvg(id),
+			link,
 			{status: 200},
 		);
 	} catch (error) {

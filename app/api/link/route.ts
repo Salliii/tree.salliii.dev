@@ -1,4 +1,5 @@
 import LinkService from "@/lib/services/link.service";
+import {revalidatePath} from "next/cache";
 import {NextRequest, NextResponse} from "next/server";
 import {z} from "zod";
 
@@ -37,8 +38,11 @@ export async function POST(request: NextRequest) {
 			svgId: z.string().optional(),
 		}).parse(await request.json());
 
+		const link = await LinkService.addLink(body);
+		revalidatePath("/", "page");
+
 		return NextResponse.json(
-			await LinkService.addLink(body),
+			link,
 			{status: 200},
 		);
 	} catch (error) {
@@ -76,8 +80,11 @@ export async function PATCH(request: NextRequest) {
 			svgId: z.string().optional(),
 		}).parse(await request.json());
 
+		const link = await LinkService.updateLink(id, body);
+		revalidatePath("/", "page");
+
 		return NextResponse.json(
-			await LinkService.updateLink(id, body),
+			link,
 			{status: 200},
 		);
 	} catch (error) {
@@ -106,8 +113,11 @@ export async function DELETE(request: NextRequest) {
 	}
 
 	try {
+		const link = await LinkService.deleteLink(id);
+		revalidatePath("/", "page");
+		
 		return NextResponse.json(
-			await LinkService.deleteLink(id),
+			link,
 			{status: 200},
 		);
 	} catch (error) {
