@@ -6,8 +6,6 @@ import {Suspense} from "react";
 
 
 export default async function RootPage() {
-
-
 	return (
 		<main className={"flex flex-col"}>
 			<section className={"w-full h-fit border-b border-black flex flex-col items-center overflow-hidden"}>
