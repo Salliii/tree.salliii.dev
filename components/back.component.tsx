@@ -4,7 +4,7 @@ import Link from "next/link";
 
 
 export default async function Back() {
-	const url = new URL("/", process.env.BASE_URL);
+	const url = new URL("/", process.env.BASE_URL).href;
 
 	return (
 		<Link className={"w-fit h-fit px-4 py-0.5 absolute top-4 left-4 rounded-md shadow-blue-500 shadow-2d " +
