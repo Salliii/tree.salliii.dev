@@ -26,6 +26,6 @@
 		@apply w-full sm:w-96 h-full
 		flex flex-col relative
 		border-x border-black
-		overflow-x-hidden overflow-y-scroll;
+		overflow-x-hidden overflow-y-hidden;
 	}
 }

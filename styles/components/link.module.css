@@ -1,6 +1,7 @@
 .linksUiWrapper {
 	@apply w-full h-fit p-8
-	flex flex-col gap-4;
+	flex flex-col gap-4
+	overflow-y-scroll;
 }
 
 .linkWrapper {

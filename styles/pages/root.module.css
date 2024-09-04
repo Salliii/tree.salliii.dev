@@ -1,6 +1,6 @@
 .headlineWrapper {
 	@apply w-full h-fit
-	flex flex-col items-center
+	flex flex-col items-center shrink-0
 	border-b border-black
 	overflow-hidden;
 }

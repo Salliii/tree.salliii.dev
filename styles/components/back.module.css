@@ -1,7 +1,7 @@
 .link {
 	@apply w-full h-fit px-4 py-2.5
 	flex flex-row items-center absolute top-0 left-0
-	border-b border-black;
+	bg-green-400 border-b border-black;
 }
 
 .link > span {

@@ -1,6 +1,6 @@
 .wrapper {
 	@apply w-full h-fit px-8 py-1
 	flex flex-row justify-center absolute bottom-0
-	border-t border-black text-xs text-black font-merriweather
+	bg-green-400 border-t border-black text-xs text-black font-merriweather
 	select-none;
 }
