@@ -1,12 +1,10 @@
 "use server";
 
+import css from "@/styles/components/footer.module.css";
+
 export default async function FooterComponent() {
 	return (
-		<section
-			className={
-				"w-full h-fit px-8 py-1 border-t border-black text-xs text-black font-merriweather select-none flex flex-row justify-center absolute bottom-0"
-			}
-		>
+		<section className={css.wrapper}>
 			<span>made by salliii</span>
 		</section>
 	);

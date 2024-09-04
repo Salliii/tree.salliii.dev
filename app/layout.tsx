@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 import { Merriweather, Roboto_Slab } from "next/font/google";
 import React from "react";
 import "@/styles/globals.css";
@@ -27,7 +28,7 @@ export default async function RootLayout({
 }) {
 	return (
 		<html
-			className={`${fontRobotoSlab.variable} ${fontMerriweather.variable}`}
+			className={clsx(fontRobotoSlab.variable, fontMerriweather.variable)}
 			lang={"en"}
 		>
 			<body>{children}</body>

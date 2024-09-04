@@ -1,0 +1,15 @@
+.link {
+	@apply w-fit h-fit px-4 py-0.5
+	absolute top-4 left-4
+	rounded-md shadow-blue-500 shadow-2d border-2 border-black;
+}
+.link::after {
+	@apply w-full h-full
+	absolute top-0.5 left-0.5
+	bg-blue-500 rounded-tl-md
+	-z-10;
+}
+
+.link > span {
+	@apply text-white font-roboto-slab;
+}

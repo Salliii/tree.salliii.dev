@@ -17,22 +17,15 @@
 	}
 
 	body {
-		@apply flex flex-col items-center
-		px-4
-		relative
+		@apply px-4
+		flex flex-col items-center relative
 		bg-green-400;
 	}
 
 	main {
 		@apply w-full sm:w-96 h-full
+		flex flex-col relative
 		border-x border-black
-		overflow-x-hidden overflow-y-scroll
-		relative;
+		overflow-x-hidden overflow-y-scroll;
 	}
-}
-
-@layer utilities {
-}
-
-@layer components {
 }

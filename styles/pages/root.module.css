@@ -1,0 +1,12 @@
+.headlineWrapper {
+	@apply w-full h-fit
+	flex flex-col items-center
+	border-b border-black
+	overflow-hidden;
+}
+
+.headlineWrapper > span {
+	@apply w-fit
+	text-8xl text-black font-merriweather font-bold uppercase
+	select-none -translate-y-full animate-movein-from-bottom;
+}
