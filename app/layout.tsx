@@ -1,7 +1,6 @@
-import {Merriweather, Roboto_Slab} from "next/font/google";
+import { Merriweather, Roboto_Slab } from "next/font/google";
 import React from "react";
 import "@/styles/globals.css";
-
 
 const fontRobotoSlab = Roboto_Slab({
 	display: "swap",
@@ -24,14 +23,14 @@ export const metadata = {
 export default async function RootLayout({
 	children,
 }: {
-	children: React.ReactNode
+	children: React.ReactNode;
 }) {
 	return (
-		<html className={`${fontRobotoSlab.variable} ${fontMerriweather.variable}`}
-			lang={"en"}>
-			<body>
-				{children}
-			</body>
+		<html
+			className={`${fontRobotoSlab.variable} ${fontMerriweather.variable}`}
+			lang={"en"}
+		>
+			<body>{children}</body>
 		</html>
 	);
 }
