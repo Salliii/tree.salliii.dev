@@ -17,6 +17,12 @@ export default class LinkService {
 		});
 	}
 
+	public static async getLocalLinks() {
+		return prismaClient.link.findMany({
+			where: {local: {not: null}},
+		});
+	}
+
 	public static async getLinkById(id: string) {
 		return prismaClient.link.findUnique({where: {id}});
 	}
