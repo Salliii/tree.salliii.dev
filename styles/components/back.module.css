@@ -1,0 +1,14 @@
+.link {
+	@apply w-full h-fit px-4 py-2.5
+	flex flex-row items-center absolute top-0 left-0
+	bg-green-400 border-b border-black;
+}
+
+.link > span {
+	@apply text-black font-roboto-slab;
+}
+
+.iconWrapper {
+	@apply w-5 min-w-5 h-5 min-h-5
+	stroke-black;
+}

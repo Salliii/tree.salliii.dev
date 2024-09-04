@@ -1,45 +1,65 @@
 "use server";
 
 import LinkService from "@/lib/services/link.service";
+import css from "@/styles/components/link.module.css";
+import { clsx } from "clsx";
 import Link from "next/link";
 import React from "react";
-
 
 export async function LinkComponentUiWrapper() {
 	const links = await LinkService.getVisibleLinks();
 
 	return (
-		<ul className={"w-full h-fit p-8 flex flex-col gap-4"}>
+		<ul className={css.linksUiWrapper}>
 			{links.map((link) => {
-				return <LinkComponent key={link.index}
-					title={link.title}
-					highlighted={link.highlighted}
-					newTab={!link.href.startsWith(process.env.BASE_URL as string)}
-					href={link.href}
-					svg={link.svg?.svg || ""} />;
+				return (
+					<LinkComponent
+						key={link.index}
+						title={link.title}
+						highlighted={link.highlighted}
+						href={link.href}
+						svg={link.svg?.svg || ""}
+						newTab={
+							!link.href.startsWith(
+								process.env.BASE_URL as string
+							)
+						}
+					/>
+				);
 			})}
 		</ul>
 	);
 }
 
 export async function LinkComponent({
-	title, highlighted, newTab, href, svg,
+	title,
+	highlighted,
+	newTab,
+	href,
+	svg,
 }: {
-	title: string, highlighted: boolean, newTab: boolean, href: string, svg: string,
+	title: string;
+	highlighted: boolean;
+	newTab: boolean;
+	href: string;
+	svg: string;
 }) {
 	return (
-		<li className={"w-full h-fit"}>
-			<Link className={"w-full h-fit flex flex-row items-center gap-2 rounded-md shadow-black shadow-2d " +
-				"border-2 border-black transition-colors " + (highlighted ? "bg-red-500" : "bg-blue-500")}
+		<li className={css.linkWrapper}>
+			<Link
+				className={clsx(css.link, {
+					"bg-red-500": highlighted,
+					"bg-blue-500": !highlighted,
+				})}
 				href={href}
 				target={newTab ? "_blank" : undefined}
-				prefetch={true}>
-				<div className={"w-10 min-w-10 h-10 min-h-10 m-1 stroke-white"}
-					dangerouslySetInnerHTML={{__html: svg}}>
-				</div>
-				<span className={"w-full h-fit mr-1 text-white text-lg font-roboto-slab"}>
-					{title}
-				</span>
+				prefetch={true}
+			>
+				<div
+					className={css.iconWrapper}
+					dangerouslySetInnerHTML={{ __html: svg }}
+				></div>
+				<span className={css.title}>{title}</span>
 			</Link>
 		</li>
 	);

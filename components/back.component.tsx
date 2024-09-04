@@ -1,19 +1,18 @@
 "use server";
 
+import ArrowIcon from "@/public/svgs/arrow-left.svg";
+import css from "@/styles/components/back.module.css";
 import Link from "next/link";
-
 
 export default async function Back() {
 	const url = new URL("/", process.env.BASE_URL).href;
 
 	return (
-		<Link className={"w-fit h-fit px-4 py-0.5 absolute top-4 left-4 rounded-md shadow-blue-500 shadow-2d " +
-			"border-2 border-black after:w-full after:h-full after:absolute after:top-0.5 after:left-0.5 " +
-			"after:bg-blue-500 after:rounded-tl-md after:-z-10"}
-			href={url}>
-			<span className={"text-white font-roboto-slab"}>
-				Back
-			</span>
+		<Link className={css.link} href={url}>
+			<div className={css.iconWrapper}>
+				<ArrowIcon />
+			</div>
+			<span>Back</span>
 		</Link>
 	);
 }
