@@ -32,7 +32,8 @@ export async function LinkComponent({
 			<Link className={"w-full h-fit flex flex-row items-center gap-2 rounded-md shadow-black shadow-2d " +
 				"border-2 border-black transition-colors " + (highlighted ? "bg-red-500" : "bg-blue-500")}
 				href={href}
-				target={newTab ? "_blank" : undefined}>
+				target={newTab ? "_blank" : undefined}
+				prefetch={true}>
 				<div className={"w-10 min-w-10 h-10 min-h-10 m-1 stroke-white"}
 					dangerouslySetInnerHTML={{__html: svg}}>
 				</div>
