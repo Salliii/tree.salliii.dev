@@ -1,6 +1,6 @@
 "use server";
 
-import Back from "@/components/back.component";
+import BacklinkComponent from "@/components/backlink.component";
 import FooterComponent from "@/components/footer.component";
 import PointingLeonardoGif from "@/public/gifs/pointing_leonardo.gif";
 import css from "@/styles/pages/spicy.module.css";
@@ -39,7 +39,7 @@ export default async function SpicyLocalPage() {
 					<span className={"text-3xl"}>!!! shame on you !!!</span>
 				</div>
 			</section>
-			<Back />
+			<BacklinkComponent />
 			<FooterComponent />
 		</main>
 	);

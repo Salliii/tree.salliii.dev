@@ -1,8 +1,8 @@
 "use server";
 
 import FooterComponent from "@/components/footer.component";
-import { LinkComponentUiWrapper } from "@/components/link.component";
-import css from "@/styles/pages/root.module.css";
+import LinkWrapper from "@/components/link/link.wrapper";
+import css from "@/styles/pages/app.module.css";
 import { Suspense } from "react";
 
 export default async function RootPage() {
@@ -12,7 +12,7 @@ export default async function RootPage() {
 				<span style={{ animationDelay: "400ms" }}>salliii</span>
 			</section>
 			<Suspense>
-				<LinkComponentUiWrapper />
+				<LinkWrapper />
 			</Suspense>
 			<FooterComponent />
 		</main>
