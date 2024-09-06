@@ -19,6 +19,7 @@ const fontMerriweather = Merriweather({
 
 export const metadata = {
 	title: "tree.salliii.dev",
+	verification: { google: "qVigOLuevQVd6yFT_kwcE2EyxeseMfMvruHCLV36RUg" },
 };
 
 export default async function RootLayout({

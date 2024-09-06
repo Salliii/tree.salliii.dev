@@ -1,0 +1,11 @@
+.wrapper {
+	@apply w-full h-fit
+	flex flex-col items-center shrink-0
+	overflow-hidden;
+}
+
+.wrapper > span {
+	@apply w-fit
+	text-black text-center font-merriweather font-bold uppercase
+	select-none;
+}
