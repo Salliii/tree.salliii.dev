@@ -2,32 +2,11 @@
 	@apply items-center justify-center;
 }
 
-.textWrapper {
-	@apply w-full h-fit py-1
-	flex flex-col items-center
-	border-black
-	overflow-hidden -z-10;
-}
-
-.topText {
-	@apply w-fit
-	text-3xl text-black text-center font-merriweather font-bold uppercase
-	select-none -translate-y-full animate-movein-from-bottom;
-}
-
-.bottomText {
-	@apply w-full h-fit
-	flex flex-col items-center
-	text-black text-center font-merriweather font-bold uppercase
-	select-none
-	translate-y-full animate-movein-from-top;
-}
-
 .gifWrapper {
 	@apply w-full h-fit p-8
 	flex flex-col items-center relative
 	border-y border-black
-	-z-10;
+	z-10;
 }
 
 .gifWrapper > img {

@@ -2,23 +2,18 @@
 
 import BacklinkComponent from "@/components/backlink.component";
 import FooterComponent from "@/components/footer.component";
+import HeadlineComponent from "@/components/headline.component";
 import PointingLeonardoGif from "@/public/gifs/pointing_leonardo.gif";
 import css from "@/styles/pages/spicy.module.css";
-import { clsx } from "clsx";
 import Image from "next/image";
 import React from "react";
 
 export default async function SpicyLocalPage() {
 	return (
 		<main className={css.main}>
-			<section className={clsx(css.textWrapper, "border-t")}>
-				<span
-					className={css.topText}
-					style={{ animationDelay: "400ms" }}
-				>
-					you naughty piece
-				</span>
-			</section>
+			<HeadlineComponent className={"border-t"} xl={3} delayMs={200}>
+				you naughty piece
+			</HeadlineComponent>
 			<section className={css.gifWrapper}>
 				<Image
 					src={PointingLeonardoGif as unknown as string}
@@ -27,18 +22,17 @@ export default async function SpicyLocalPage() {
 					alt={""}
 				/>
 			</section>
-			<section className={clsx(css.textWrapper, "border-b")}>
-				<div
-					className={css.bottomText}
-					style={{ animationDelay: "1200ms" }}
-				>
-					<span className={"text-base"}>
-						no spicy content, just judgment!
-						<br />
-					</span>
-					<span className={"text-3xl"}>!!! shame on you !!!</span>
-				</div>
-			</section>
+			<HeadlineComponent
+				className={"border-b"}
+				delayMs={600}
+				from={"top"}
+			>
+				<span className={"text-base"}>
+					no spicy content, just judgment!
+					<br />
+				</span>
+				<span className={"text-3xl"}>!!! shame on you !!!</span>
+			</HeadlineComponent>
 			<BacklinkComponent />
 			<FooterComponent />
 		</main>
