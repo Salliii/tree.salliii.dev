@@ -1,4 +1,4 @@
-## [tree.salliii.dev](https://tree.salliii.dev) - not yet deployed 🚧
+## [tree.salliii.dev](https://tree.salliii.dev)
 
 [![nextjs][nextjs-shield]][nextjs-url]
 [![tailwindcss][tailwindcss-shield]][tailwindcss-url]
